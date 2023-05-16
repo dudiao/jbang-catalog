@@ -1,0 +1,11 @@
+{
+  "catalogs": {},
+  "aliases": {
+    "buginfo": {
+      "script-ref": "src/main/java/io/github/dudiao/jbang/sub/mvnClean.java",
+      "description": "清理指定Maven目录的快照版本"
+    }
+  },
+  "templates": {
+  }
+}
