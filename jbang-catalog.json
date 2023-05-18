@@ -4,10 +4,6 @@
     "nboot": {
       "script-ref": "src/main/java/io/github/dudiao/jbang/nboot.java",
       "description": "工具集合"
-    },
-    "hello": {
-      "script-ref": "hello.java",
-      "description": "hello person"
     }
   },
   "templates": {
