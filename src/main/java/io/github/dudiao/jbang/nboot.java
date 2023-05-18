@@ -9,6 +9,8 @@ package io.github.dudiao.jbang;
 import io.github.dudiao.jbang.sub.MvnClean;
 import picocli.CommandLine;
 
+import java.io.IOException;
+
 /**
  * nboot-cli
  *
@@ -17,7 +19,7 @@ import picocli.CommandLine;
  */
 @CommandLine.Command(name = "nboot", mixinStandardHelpOptions = true, versionProvider = NbootVersionProvider.class, description = "常用工具集合",
     subcommands = {MvnClean.class})
-public class nboot implements Runnable {
+public class nboot extends BaseCommand {
 
     @CommandLine.Spec
     CommandLine.Model.CommandSpec spec;
@@ -28,8 +30,9 @@ public class nboot implements Runnable {
     }
 
     @Override
-    public void run() {
+    public Integer doCall() throws IOException {
         // if the command was invoked without subcommand, show the usage help
         spec.commandLine().usage(System.err);
+        return 0;
     }
 }
