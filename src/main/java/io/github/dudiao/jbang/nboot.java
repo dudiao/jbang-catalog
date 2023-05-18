@@ -1,6 +1,9 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //DEPS info.picocli:picocli:4.6.3
 //DEPS cn.hutool:hutool-core:5.8.11
+//SOURCES src/main/java/io/github/dudiao/jbang/sub/MvnClean.java
+//SOURCES src/main/java/io/github/dudiao/jbang/NbootVersionProvider.java
+//SOURCES src/main/java/io/github/dudiao/jbang/BaseCommand.java
 package io.github.dudiao.jbang;
 
 import io.github.dudiao.jbang.sub.MvnClean;
