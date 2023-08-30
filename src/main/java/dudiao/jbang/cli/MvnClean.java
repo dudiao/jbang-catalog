@@ -1,4 +1,4 @@
-package io.github.dudiao.jbang.cli;
+package dudiao.jbang.cli;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;

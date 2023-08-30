@@ -1,4 +1,4 @@
-package io.github.dudiao.jbang;
+package dudiao.jbang;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;

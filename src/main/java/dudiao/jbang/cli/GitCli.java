@@ -1,8 +1,8 @@
-package io.github.dudiao.jbang.cli;
+package dudiao.jbang.cli;
 
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.RuntimeUtil;
-import io.github.dudiao.jbang.Log;
+import dudiao.jbang.Log;
 import picocli.CommandLine;
 
 import java.io.File;

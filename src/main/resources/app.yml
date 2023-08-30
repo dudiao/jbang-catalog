@@ -1,0 +1,6 @@
+
+app.name: "My App"
+
+solon.logging.appender:
+  console:
+    pattern: "%d{yyyy-MM-dd HH:mm:ss} %-5level %white(---) %-45(%cyan(%.32logger{30}:%L)) %msg%n"

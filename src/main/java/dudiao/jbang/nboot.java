@@ -1,17 +1,17 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 17
 //DEPS info.picocli:picocli:4.6.3
-//DEPS cn.hutool:hutool-core:5.8.11
+//DEPS cn.hutool:hutool-core:5.8.20
 //SOURCES cli/MvnClean.java
 //SOURCES cli/GitCli.java
 //SOURCES cli/BaseCommand.java
 //SOURCES NbootVersionProvider.java
 //SOURCES Log.java
-package io.github.dudiao.jbang;
+package dudiao.jbang;
 
-import io.github.dudiao.jbang.cli.BaseCommand;
-import io.github.dudiao.jbang.cli.GitCli;
-import io.github.dudiao.jbang.cli.MvnClean;
+import dudiao.jbang.cli.BaseCommand;
+import dudiao.jbang.cli.GitCli;
+import dudiao.jbang.cli.MvnClean;
 import picocli.CommandLine;
 
 import java.io.IOException;

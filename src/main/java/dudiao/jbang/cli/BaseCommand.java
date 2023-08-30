@@ -1,4 +1,4 @@
-package io.github.dudiao.jbang.cli;
+package dudiao.jbang.cli;
 
 import java.io.IOException;
 import java.util.concurrent.Callable;

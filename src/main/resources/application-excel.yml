@@ -1,0 +1,354 @@
+sia:
+  # 模版文件的标题
+  templateHeader: [日期,账户名,计划名称,省,市,展现,点击,消费,渠道,组别,现金消费,校区,中心判定,业务类别,校区-音乐]
+  # 文件导出的路径，不包括文件名
+  exportPath: "/Users/songyinyin/xiaoyu/source"
+  # 公共字段
+  common-field:
+    "组别": sia.getMap(properties.groupBy, item.渠道)
+    "现金消费": sia.mathDiv(item.消费, sia.getMap(properties.rebate, item.渠道))
+    "校区": sia.school(item.市, item.省)
+    "中心判定": sia.isCenter(item.市, properties.centerCity)
+    "业务类别": sia.businessCategory(item.计划名称)
+    "校区-音乐": sia.musicSchool(item.校区, item.业务类别)
+  # 分类，按照渠道分类到组别
+  group-by:
+    "百度": 广告投放
+    "搜狗": 广告投放
+    "360": 广告投放
+    "谷歌": 广告投放
+    "神马": 广告投放
+    "头条搜索": 广告投放
+    "头条信息流": 广告投放
+    "搜一搜": 广告投放
+    "朋友圈": 流量运营
+    "自媒体推广": 流量运营
+    "小红书信息流": 流量运营
+    "大众点评": 流量运营
+    "百度信息流": 广告投放
+    "官微": 流量运营
+    "kol小红书": 流量运营
+    "官方小红书": 流量运营
+  # 返点
+  rebate:
+    "百度": 1.27
+    "搜狗": 1.12
+    "360": 1.1
+    # 1/1.14
+    "谷歌": 0.87719298245614035087719298245614
+    "神马": 1
+    "头条搜索": 1
+    "头条信息流": 1.06
+    "搜一搜": 1.1
+    "朋友圈": 1.11
+    "自媒体推广": 1.07
+    "小红书信息流": 1.03
+    "大众点评": 1
+    "百度信息流": 1.26
+    "官微": 1.11
+    "kol小红书": 1.07
+    "官方小红书": 1.07
+  # 中心判定
+  center-city: [北京,上海,广州,深圳,武汉,成都,重庆,天津,南京,杭州]
+  # 按照表头的字段分组
+  header-group-by: [日期,渠道,账户名,中心判定]
+  # 分组后的求和字段
+  header-sum: [展现,点击,现金消费]
+  config:
+    "搜一搜": # 对应表头的渠道
+      namePattern: '*人群分析*.csv'
+      dataStartLineNo: 1
+      fileCharset: utf-8
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.yesterday()"
+        "fix:账户名": 搜一搜
+        "计划名称": 推广计划名称
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光量
+        "点击": 点击量
+        "消费": 花费
+    "360": # 对应表头的渠道
+      namePattern: '鲲鹏山水00*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 时间,sia.formatDate(s.substring(value, 2, s.length(value) - 1))
+        "账户名": 推广账户
+        "计划名称": 推广计划
+        "省": 省级地区
+        "市": 市级地区
+        "展现": 展示次数
+        "点击": 点击次数
+        "消费": 总费用
+    "神马": # 对应表头的渠道
+      namePattern: '分地域报告-*-*.csv'
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 时间,sia.formatDate(value)
+        #"账户名": 账户
+        "fix:账户名": 鲲鹏山水1
+        "计划名称": 推广组
+        "省": 省级地域
+        "市": 地市级地域
+        "展现": 展现量
+        "点击": 点击量
+        "消费": 消费
+    "搜狗": # 对应表头的渠道
+      namePattern: '搜狗siaedu*.csv'
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": siaedu
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光量
+        "点击": 点击量
+        "消费": 花费
+        "fix:渠道": 搜狗
+    "搜狗cao": # 对应表头的渠道
+      namePattern: '搜狗cao*.csv'
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": caoyaping
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光量
+        "点击": 点击量
+        "消费": 花费
+        "fix:渠道": 搜狗
+    "搜狗ita": # 对应表头的渠道
+      namePattern: '搜狗ita*.csv'
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": itaccount
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光量
+        "点击": 点击量
+        "消费": 花费
+        "fix:渠道": 搜狗
+    "谷歌": # 对应表头的渠道
+      namePattern: '*计划地域报告*.csv'
+      beginLineNo: 2
+      headerLineNo: 2
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 天
+        "fix:账户名": kenpeng2020
+        "计划名称": 广告系列
+        "省": 国家/地区（匹配）
+        "市": 城市（匹配）
+        "展现": 展示次数
+        "点击": 点击次数
+        "消费": 费用
+        "fix:渠道": 谷歌
+    "谷歌1": # 对应表头的渠道
+      namePattern: '地域分析报告.csv'
+      beginLineNo: 2
+      headerLineNo: 2
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 天
+        "fix:账户名": siaedu2022
+        "计划名称": 广告系列
+        "省": 国家/地区（匹配）
+        "市": 城市（匹配）
+        "展现": 展示次数
+        "点击": 点击次数
+        "消费": 费用
+        "fix:渠道": 谷歌
+    "头条信息流": # 对应表头的渠道
+      namePattern: '头条信息流*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 头条信息流
+        "市": 地级市
+        "展现": 展示数
+        "点击": 点击数
+        "消费": 消耗
+    "头条搜索": # 对应表头的渠道
+      namePattern: '头条搜索*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 头条搜索
+        "市": 城市
+        "展现": 展示数
+        "点击": 点击数
+        "消费": 消耗
+    "百度": # 对应表头的渠道
+      namePattern: '百度*.csv'
+      beginLineNo: 5
+      headerLineNo: 5
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 日期
+        "账户名": 账户
+        "计划名称": 推广计划
+        "省": "城市,s.split(value, '-')0"
+        "市": "城市,s.split(value, '-')1"
+        "展现": 展现
+        "点击": 点击
+        "消费": 消费
+    "百度信息流": # 对应表头的渠道
+      namePattern: 'dingxiang_*.csv'
+      beginLineNo: 4
+      headerLineNo: 4
+      dataStartLineNo: 1
+      # fileCharset: gbk
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 日期
+        "fix:账户名": 百度信息流
+        "省": 省
+        "市": 市
+        "展现": 展现
+        "点击": 点击
+        "消费": 消费
+    "大众点评": # 对应表头的渠道
+      namePattern: '大众点评*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 日期,sia.formatDate(value)
+        "fix:账户名": 大众点评
+        "省": 门店所在城市
+        "市": 门店所在城市
+        "展现": 曝光（次）
+        "点击": 点击（次）
+        "消费": 花费（元）
+    "自媒体推广": # 对应表头的渠道
+      namePattern: '伦艺*.csv,罗德岛*.csv,帕森斯*.csv'
+      dataStartLineNo: 1
+      sheetIndex: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 微博
+        "市": "地级市-当前地"
+        "展现": 曝光量
+        "点击": 互动数
+        "消费": 消耗
+    "小红书信息流": # 对应表头的渠道
+      namePattern: '小红书*.csv'
+      dataStartLineNo: 2
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 时间
+        "fix:账户名": 小红书信息流
+        "市": "城市"
+        "展现": 展现量
+        "点击": 点击量
+        "消费": 消费
+    "朋友圈": # 对应表头的渠道
+      namePattern: '朋友圈.csv,小百科*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 朋友圈
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光次数
+        "点击": 点击次数
+        "消费": 花费
+        "fix:渠道": 朋友圈
+    "朋友圈辅助": # 对应表头的渠道
+      namePattern: '朋友圈辅助*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 朋友圈
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光量
+        "点击": 点击量
+        "消费": 花费
+        "fix:渠道": 朋友圈
+    "官微": # 对应表头的渠道
+      namePattern: '官微*.csv'
+      dataStartLineNo: 1
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": ",sia.getBusinessDate(fileName)"
+        "fix:账户名": 官微
+        "省": "地域,s.split(value, '-')0"
+        "市": "地域,sia.getWxSearchCity(value)"
+        "展现": 曝光次数
+        "点击": 点击次数
+        "消费": 花费
+        "fix:渠道": 官微
+    "kol小红书": # 对应表头的渠道
+      # 匹配时，不区分大小写
+      namePattern: 'kol小红书*.csv'
+      dataStartLineNo: 2
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 时间,sia.formatDate(value)
+        "fix:账户名": kol小红书
+        "市": 城市
+        "展现": 展现量
+        "点击": 点击量
+        "消费": 消费
+    "官方小红书": # 对应表头的渠道
+      # 匹配时，不区分大小写
+      namePattern: '官方小红书*.csv,音乐小红书*.csv'
+      dataStartLineNo: 2
+      # key=模版字段名，value=待整理的csv文件的字段名,计算表达式
+      fieldMapping:
+        "日期": 时间,sia.formatDate(value)
+        "账户名": ",s.startsWith(fileName, '官方小红书') ? '官方小红书' : '音乐小红书'"
+        "市": 城市
+        "展现": 展现量
+        "点击": 点击量
+        "消费": 消费
+  # 校区判定
+  # key=校区, value=市
+  city-school:
+    "成都": [成都,绵阳,德阳,自贡,攀枝花,广元,乐山,南充,达州,雅安,眉山,巴中,资阳,阿坝,甘孜,凉山,贵阳,六盘水,遵义,安顺,铜仁,黔西南,毕节,黔东南,黔南,昆明,曲靖,玉溪,保山,昭通,丽江,普洱,临沧,楚雄,红河,文山,西双版纳,大理,德宏,怒江,迪庆,临夏,甘南,乌鲁木齐,克拉玛依,石河子,阿拉尔,图木舒克,五家渠,吐鲁番,哈密,昌吉,博尔塔拉,巴音郭楞,阿克苏,克孜勒,喀什,和田,伊犁,塔城,阿勒泰]
+    "广州": [长沙,常德,株洲,湘潭,衡阳,岳阳,邵阳,益阳,娄底,怀化,郴州,永州,湘西,张家界,广州,珠海,东莞,中山,佛山,韶关,江门,湛江,茂名,肇庆,梅州,阳江,清远,云浮,三亚,玉林,来宾,崇左,贺州,百色,河池,柳州,桂林,梧州,北海,防城港,钦州,贵港,福州,莆田,三明,泉州,漳州,龙岩,抚州,萍乡,新余,赣州,吉安,宜春]
+    "上海": [上饶,拉萨,日喀则,山南,林芝,昌都,阿里,那曲,兰州,嘉峪关,金昌,白银,天水,酒泉,张掖,武威,定西,陇南,平凉,庆阳,银川,石嘴山,吴忠,固原,中卫,西宁,海东,海南,海北,黄南,玉树,果洛,海西,台湾,上海,苏州,南通,无锡,蚌埠,淮北,铜陵,安庆,黄山,宿州,池州,淮南,巢湖,阜阳,六安,宣城,亳州,南昌,景德镇,九江,鹰潭,嘉兴,湖州]
+    "天津": [天津,承德,唐山,秦皇岛,沧州,赤峰,沈阳,锦州,营口,阜新,辽阳,盘锦,铁岭,葫芦岛,东营,德州,滨州]
+    "重庆": [泸州,遂宁,内江,宜宾,广安,重庆]
+    "杭州": [杭州,南平,宁德,宁波,温州,绍兴,金华,衢州,舟山,台州,丽水]
+    "武汉": [南阳,信阳,武汉,黄石,十堰,宜昌,襄阳,荆州,荆门,鄂州,孝感,黄冈,咸宁,随州,恩施,仙桃,潜江,天门,神农架,驻马店]
+    "深圳": [深圳,汕头,惠州,汕尾,河源,潮州,揭阳,海口,南宁,厦门,香港,澳门,海外,未知]
+    "南京": [商丘,南京,镇江,扬州,盐城,徐州,连云港,常州,宿迁,泰州,淮安,合肥,芜湖,马鞍山,滁州,枣庄,临沂]
+    "北京": [郑州,开封,洛阳,平顶山,安阳,鹤壁,新乡,焦作,濮阳,许昌,漯河,三门峡,周口,济源,西安,宝鸡,咸阳,铜川,渭南,延安,榆林,汉中,安康,商洛,北京,朝阳,石家庄,邯郸,邢台,保定,张家口,廊坊,衡水,太原,大同,阳泉,长治,晋城,朔州,吕梁,忻州,晋中,临汾,运城,呼和浩特,包头,乌海,通辽,鄂尔多斯,呼伦贝尔,巴彦淖尔,乌兰察布,兴安盟,锡林郭勒,阿拉善,大连,鞍山,抚顺,本溪,丹东,长春,吉林,四平,辽源,通化,白山,松原,白城,延边,哈尔滨,齐齐哈尔,牡丹江,佳木斯,大庆,绥化,鹤岗,鸡西,黑河,双鸭山,伊春,七台河,大兴安岭,青岛,济宁,日照,济南,淄博,烟台,潍坊,泰安,威海,莱芜,聊城,菏泽]
+  # key=校区, value=省
+  province-school:
+    "成都": [贵州,新疆,云南,四川]
+    "上海": [宁夏,青海,上海,西藏,台湾,安徽,甘肃,江西]
+    "广州": [湖南,福建,广东,广西,海南]
+    "天津": [天津]
+    "重庆": [重庆]
+    "杭州": [浙江]
+    "武汉": [湖北]
+    "南京": [江苏]
+    "深圳": [香港,澳门,日本,其它国家,未知]
+    "北京": [北京,河北,河南,黑龙江,吉林,辽宁,内蒙古,山东,山西,陕西]
+  # 音乐校区划分
+  music-school:
+    "北京": 天津
+    "成都": 重庆
+    "上海": 南京

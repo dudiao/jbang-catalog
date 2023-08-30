@@ -1,4 +1,4 @@
-package io.github.dudiao.jbang;
+package dudiao.jbang;
 
 class MainTest {
 
