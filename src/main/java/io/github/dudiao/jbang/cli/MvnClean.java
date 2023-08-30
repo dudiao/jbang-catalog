@@ -1,11 +1,10 @@
-package io.github.dudiao.jbang.sub;
+package io.github.dudiao.jbang.cli;
 
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.lang.ConsoleTable;
 import cn.hutool.core.util.StrUtil;
-import io.github.dudiao.jbang.BaseCommand;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 

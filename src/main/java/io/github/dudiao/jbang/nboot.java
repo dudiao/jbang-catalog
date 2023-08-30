@@ -1,12 +1,17 @@
 ///usr/bin/env jbang "$0" "$@" ; exit $?
+//JAVA 17
 //DEPS info.picocli:picocli:4.6.3
 //DEPS cn.hutool:hutool-core:5.8.11
-//SOURCES sub/MvnClean.java
+//SOURCES cli/MvnClean.java
+//SOURCES cli/GitCli.java
+//SOURCES cli/BaseCommand.java
 //SOURCES NbootVersionProvider.java
-//SOURCES BaseCommand.java
+//SOURCES Log.java
 package io.github.dudiao.jbang;
 
-import io.github.dudiao.jbang.sub.MvnClean;
+import io.github.dudiao.jbang.cli.BaseCommand;
+import io.github.dudiao.jbang.cli.GitCli;
+import io.github.dudiao.jbang.cli.MvnClean;
 import picocli.CommandLine;
 
 import java.io.IOException;
@@ -18,7 +23,7 @@ import java.io.IOException;
  * @since 2022/8/9 15:11
  */
 @CommandLine.Command(name = "nboot", mixinStandardHelpOptions = true, versionProvider = NbootVersionProvider.class, description = "常用工具集合",
-    subcommands = {MvnClean.class})
+    subcommands = {MvnClean.class, GitCli.class})
 public class nboot extends BaseCommand {
 
     @CommandLine.Spec

@@ -10,7 +10,7 @@
     <description>jbang-catalog</description>
 
     <properties>
-        <java.version>8</java.version>
+        <java.version>17</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
         <hutool.version>5.8.11</hutool.version>
@@ -28,6 +28,14 @@
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-core</artifactId>
             <version>${hutool.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
