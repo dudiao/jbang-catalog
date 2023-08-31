@@ -4,7 +4,7 @@ package dudiao.jbang;
 //DEPS org.noear:solon-parent:2.5.0-M1@pom
 //DEPS org.noear:solon.config.yaml
 //DEPS org.noear:solon.logging.logback
-//DEPS info.picocli:picocli:4.6.3
+//DEPS info.picocli:picocli:4.7.5
 //DEPS cn.hutool:hutool-core:5.8.20
 //DEPS cn.hutool:hutool-poi:5.8.20
 //DEPS org.apache.poi:poi-ooxml:5.2.3

@@ -19,7 +19,7 @@
         <java.version>17</java.version>
         <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 
-        <picocli.version>4.6.3</picocli.version>
+        <picocli.version>4.7.5</picocli.version>
         <aviator.version>5.3.3</aviator.version>
         <poi.version>5.2.3</poi.version>
     </properties>
