@@ -1,4 +1,4 @@
-package dudiao.jbang.sia;
+package dudiao.jbang;
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 17
 //DEPS org.noear:solon-parent:2.5.0-M1@pom
@@ -11,25 +11,15 @@ package dudiao.jbang.sia;
 //DEPS com.googlecode.aviator:aviator:5.3.3
 //DEPS org.projectlombok:lombok:1.18.26
 
-//SOURCES event/DealPostEvent.java
-//SOURCES event/SiaListener.java
-//SOURCES ExcelProperties.java
-//SOURCES ExtractExcelAutoConfiguration.java
-//SOURCES ExtractExcelCli.java
-//SOURCES KeywordMatchCli.java
-//SOURCES KeywordRowHandler.java
-//SOURCES NbootCliService.java
-//SOURCES SiaUtils.java
-//SOURCES ../NbootVersionProvider.java
-//SOURCES ../Log.java
-//SOURCES ../nboot.java
-//SOURCES ../utils/CsvUtils.java
-//SOURCES ../utils/PatternMatchUtils.java
-//FILES ../../../../resources/app.yml
-//FILES ../../../../resources/application-excel.yml
-//FILES ../../../../resources/application-keyword.yml
+//SOURCES sia/event/*.java
+//SOURCES sia/*.java
+//SOURCES NbootVersionProvider.java
+//SOURCES Log.java
+//SOURCES nboot.java
+//SOURCES utils/*.java
+//FILES ../../../resources/*.yml
 
-import dudiao.jbang.nboot;
+import dudiao.jbang.sia.NbootCliService;
 import org.noear.solon.Solon;
 import org.noear.solon.SolonApp;
 import org.noear.solon.annotation.PropertySource;
