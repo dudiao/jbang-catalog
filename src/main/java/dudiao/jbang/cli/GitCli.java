@@ -5,7 +5,9 @@ import cn.hutool.core.util.RuntimeUtil;
 import dudiao.jbang.Log;
 import picocli.CommandLine;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 
 /**
@@ -50,11 +52,25 @@ public class GitCli extends BaseCommand {
         if (Arrays.asList(file.list()).contains(".git")) {
             String[] gitClis = ArrayUtil.addAll(new String[]{"git"}, clis);
             Log.info("{} => {}", file.getPath(), Arrays.toString(gitClis));
-            RuntimeUtil.exec(null, file, gitClis);
+            runCommand(file, gitClis);
         } else {
             for (File itemFile : files) {
                 executeGitConfigCli(itemFile);
             }
+        }
+    }
+
+    public void runCommand(File file, String... cmd) {
+        try {
+            Process process = RuntimeUtil.exec(null, file, cmd);
+            BufferedReader br = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            br.lines().forEach(Log::info);
+            int exitCode = process.waitFor();
+            if (exitCode != 0) {
+                Log.error(String.format("Command failed: #%d", exitCode));
+            }
+        } catch (InterruptedException ex) {
+            Log.error("Error running: " + String.join(" ", cmd), ex);
         }
     }
 }
