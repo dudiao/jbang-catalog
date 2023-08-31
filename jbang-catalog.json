@@ -2,7 +2,7 @@
   "catalogs": {},
   "aliases": {
     "nboot": {
-      "script-ref": "src/main/java/dudiao/jbang/sia/SiaSolonApp.java",
+      "script-ref": "src/main/java/dudiao/jbang/SiaSolonApp.java",
       "description": "工具集合",
       "cds": true
     }
