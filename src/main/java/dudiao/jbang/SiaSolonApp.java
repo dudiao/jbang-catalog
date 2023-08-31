@@ -28,7 +28,6 @@ package dudiao.jbang;
 //SOURCES NbootVersionProvider.java
 //SOURCES Log.java
 //SOURCES nboot.java
-//SOURCES utils/*.java
 //FILES ../../../resources/application-keyword.yml
 //FILES ../../../resources/application-excel.yml
 //FILES ../../../resources/app.yml
