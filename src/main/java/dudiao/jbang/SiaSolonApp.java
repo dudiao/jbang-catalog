@@ -11,13 +11,27 @@ package dudiao.jbang;
 //DEPS com.googlecode.aviator:aviator:5.3.3
 //DEPS org.projectlombok:lombok:1.18.26
 
-//SOURCES sia/event/*.java
-//SOURCES sia/*.java
+//SOURCES sia/event/SiaListener.java
+//SOURCES sia/event/DealPostEvent.java
+//SOURCES sia/SiaUtils.java
+//SOURCES sia/ExcelProperties.java
+//SOURCES sia/NbootCliService.java
+//SOURCES sia/KeywordRowHandler.java
+//SOURCES sia/KeywordMatchCli.java
+//SOURCES sia/ExtractExcelCli.java
+//SOURCES sia/ExtractExcelAutoConfiguration.java
+//SOURCES cli/MvnClean.java
+//SOURCES cli/GitCli.java
+//SOURCES cli/BaseCommand.java
+//SOURCES utils/CsvUtils.java
+//SOURCES utils/PatternMatchUtils.java
 //SOURCES NbootVersionProvider.java
 //SOURCES Log.java
 //SOURCES nboot.java
 //SOURCES utils/*.java
-//FILES ../../../resources/*.yml
+//FILES ../../../resources/application-keyword.yml
+//FILES ../../../resources/application-excel.yml
+//FILES ../../../resources/app.yml
 
 import dudiao.jbang.sia.NbootCliService;
 import org.noear.solon.Solon;
