@@ -1,7 +1,7 @@
 package dudiao.jbang.sia;
 ///usr/bin/env jbang "$0" "$@" ; exit $?
 //JAVA 17
-//DEPS org.noear:solon-parent:2.4.5@pom
+//DEPS org.noear:solon-parent:2.5.0-M1@pom
 //DEPS org.noear:solon.config.yaml
 //DEPS org.noear:solon.logging.logback
 //DEPS info.picocli:picocli:4.6.3

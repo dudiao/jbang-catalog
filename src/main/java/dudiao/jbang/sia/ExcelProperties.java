@@ -31,7 +31,7 @@ public class ExcelProperties {
     /**
      * 每种来源文件的配置，key=来源
      */
-    private final Map<String, ExcelInfo> config = new LinkedHashMap<>();
+    private Map<String, ExcelInfo> config = new LinkedHashMap<>();
 
     /**
      * 分类，按照渠道分类到组别，key=渠道 value=组别

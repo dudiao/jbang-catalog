@@ -3,7 +3,8 @@
   "aliases": {
     "nboot": {
       "script-ref": "src/main/java/dudiao/jbang/sia/SiaSolonApp.java",
-      "description": "工具集合"
+      "description": "工具集合",
+      "cds": true
     }
   },
   "templates": {
